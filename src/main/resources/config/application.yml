@@ -1,0 +1,18 @@
+spring:
+  freemarker:
+    template-loader-path: classpath:/template
+    suffix: .ftl
+# 日志
+logging:
+  level:
+    org.fcx.mytool: info
+mytool:
+  proxy-links-file-path: file:proxy_links.json
+  proxy-host: 127.0.0.1
+  proxy-port: 7890
+  use-proxy: false
+  init-proxies: true
+server:
+  tomcat:
+    min-spare-threads: 1
+    max-threads: 5
