@@ -1,7 +1,11 @@
 package org.fcx.fq.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.fcx.fq.entity.proxy.ProxyLinks;
+import org.fcx.fq.entity.proxy.clash.Config;
 import org.fcx.fq.entity.proxy.clash.Proxy;
 import org.fcx.fq.exception.MyToolException;
 import org.fcx.fq.util.MyUtil;
@@ -17,6 +21,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
@@ -32,6 +38,29 @@ public class FqController {
     private Map<String,Set<Proxy>> proxiesMap = new HashMap<>();
     @Autowired
     private RestTemplate rt;
+
+    @ResponseBody
+    @RequestMapping("config/{alias}.yml")
+    public String getConfig(@PathVariable("alias")String alias){
+        Set<Proxy> proxies = proxiesMap.get(alias);
+
+        if(CollectionUtils.isEmpty(proxies)){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"not found alias :"+alias);
+        }
+        Config config = new Config(proxies);
+
+        StringWriter sw = new StringWriter();
+        YAMLFactory yf = new YAMLFactory();
+        yf.enable(YAMLGenerator.Feature.MINIMIZE_QUOTES);
+        yf.disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER);
+        ObjectMapper om = new ObjectMapper(yf);
+        try {
+            om.writeValue(sw,config);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sw.toString();
+    }
 
     @RequestMapping("config/{software}/{alias}")
     public ModelAndView getTpConfig(@PathVariable("software")String software, @PathVariable("alias")String alias, HttpServletRequest servletRequest){
