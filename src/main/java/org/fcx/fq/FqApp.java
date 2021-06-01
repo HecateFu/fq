@@ -10,10 +10,10 @@ import java.util.Arrays;
 @Slf4j
 @EnableScheduling
 @SpringBootApplication
-public class MyToolApp {
+public class FqApp {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext ac = SpringApplication.run(MyToolApp.class,args);
+        ConfigurableApplicationContext ac = SpringApplication.run(FqApp.class,args);
         String[] activeProfiles = ac.getEnvironment().getActiveProfiles();
         log.info("activeProfiles = {}", Arrays.toString(activeProfiles));
     }
