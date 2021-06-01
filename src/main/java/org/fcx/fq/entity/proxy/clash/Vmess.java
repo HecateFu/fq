@@ -9,7 +9,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.fcx.fq.exception.MyToolException;
 import org.fcx.fq.util.JacksonObjectMapperUtil;
-import org.fcx.fq.util.MyUtil;
+import org.fcx.fq.util.MyToolUtil;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class Vmess extends Proxy {
     public Vmess (String link) {
         super("vmess");
         String raw = link.substring(8);
-        String serverJsonStr = MyUtil.base64Decode(raw);
+        String serverJsonStr = MyToolUtil.base64Decode(raw);
         log.debug(serverJsonStr);
         ObjectMapper om = JacksonObjectMapperUtil.getJsonMapper();
         try {

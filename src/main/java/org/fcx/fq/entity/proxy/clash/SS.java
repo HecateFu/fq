@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.fcx.fq.exception.MyToolException;
-import org.fcx.fq.util.MyUtil;
+import org.fcx.fq.util.MyToolUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -44,7 +44,7 @@ public class SS extends Proxy {
             if(urlDecoded.matches(p0)){
                 String[] fields = urlDecoded.split("/#");
                 setName(fields[1]);
-                String serverDecoded = MyUtil.base64Decode(fields[0]);
+                String serverDecoded = MyToolUtil.base64Decode(fields[0]);
                 int lastAt = serverDecoded.lastIndexOf("@");
                 String encryptStr = serverDecoded.substring(0,lastAt);
                 String serverStr = serverDecoded.substring(lastAt+1);
@@ -57,7 +57,7 @@ public class SS extends Proxy {
             }else if(urlDecoded.matches(p1)){
                 String[] fields = urlDecoded.split("#");
                 setName(fields[1]);
-                String serverDecoded = MyUtil.base64Decode(fields[0]);
+                String serverDecoded = MyToolUtil.base64Decode(fields[0]);
                 int lastAt = serverDecoded.lastIndexOf("@");
                 String encryptStr = serverDecoded.substring(0,lastAt);
                 String serverStr = serverDecoded.substring(lastAt+1);
@@ -70,7 +70,7 @@ public class SS extends Proxy {
             }else if(urlDecoded.matches(p2)){
                 String[] fields = urlDecoded.split("/?\\?");
                 String[] proxyFields = fields[0].split("@");
-                String encryptDecoded = MyUtil.base64Decode(proxyFields[0]);
+                String encryptDecoded = MyToolUtil.base64Decode(proxyFields[0]);
                 String[] encryptFields = encryptDecoded.split(":");
                 this.cipher = encryptFields[0];
                 this.password = encryptFields[1];
@@ -88,7 +88,7 @@ public class SS extends Proxy {
                 }
                 setName(otherFields[1]);
             } else {
-                String serverDecoded = MyUtil.base64Decode(raw);
+                String serverDecoded = MyToolUtil.base64Decode(raw);
                 String noName = "\\S+:\\S+@\\S+:\\d+";
                 if(serverDecoded.matches(noName)){
                     int lastAt = serverDecoded.lastIndexOf("@");

@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.fcx.fq.entity.proxy.ProxyLinks;
 import org.fcx.fq.entity.proxy.clash.Proxy;
 import org.fcx.fq.exception.MyToolException;
-import org.fcx.fq.util.MyUtil;
+import org.fcx.fq.util.MyToolUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -158,7 +158,7 @@ public class FqController {
      * @return
      */
     public Set<Proxy> parseProxyList(String raw) {
-        String first = MyUtil.base64Decode(raw);
+        String first = MyToolUtil.base64Decode(raw);
         String[] links = first.split("\n");
         Set<Proxy> proxyList = new TreeSet<>((proxy1,proxy2) -> {
             String p1 = proxy1.getServer()+proxy1.getPort();

@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 @Slf4j
-public class MyUtil {
+public class MyToolUtil {
     /**
      * Base64 Url 解码，UTF-8 字符集
      * @param raw 密文
