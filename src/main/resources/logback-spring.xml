@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="pattern" value="%d %green([%thread]) %highlight(%level) %logger - %msg%n"/>
+    <property name="pattern" value="%d [%thread] %level %logger - %msg%n"/>
     <!-- 控制台日志输出 -->
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>>${pattern}</pattern>
+            <pattern>${pattern}</pattern>
         </encoder>
     </appender>
     <!-- 正常日志文件输出 -->
@@ -37,7 +37,7 @@
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>>${pattern}</pattern>
+            <pattern>${pattern}</pattern>
         </encoder>
     </appender>
 
