@@ -17,9 +17,9 @@
             <level>ERROR</level>
             <onMatch>DENY</onMatch>
         </filter>
-        <file>mytool-normal.log</file>
+        <file>fq-normal.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>mytool-normal.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>fq-normal.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -31,9 +31,9 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>
         </filter>
-        <file>mytool-alert.log</file>
+        <file>fq-alert.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>mytool-alert.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>fq-alert.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
         <encoder>
