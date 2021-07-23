@@ -12,7 +12,7 @@ proxies:
   <#elseif proxy.type == "ss" && proxy.cipher != "rc4">
   - {name: '${proxy?counter} ${proxy.name}', server: ${proxy.server}, port: ${proxy.port?c}, type: ${proxy.type}, udp: true, cipher: ${proxy.cipher}, password: ${proxy.password}<#if proxy.plugin??>, plugin: ${proxy.plugin}, plugin-opts: {<#list proxy.pluginOpts as k,v>${k}: ${v}<#sep>,</#list>}</#if>}
   <#elseif proxy.type == "ssr" && proxy.cipher != "none" && proxy.cipher != "rc4" && proxy.cipher != "chacha20">
-  - {name: '${proxy?counter} ${proxy.name}', server: ${proxy.server}, port: ${proxy.port?c}, type: ${proxy.type}, udp: true, cipher: ${proxy.cipher}, password: ${proxy.password}, protocol: ${proxy.protocol}, obfs: ${proxy.obfs}<#if proxy.protocolParam??>, protocol-param: ${proxy.protocolParam}</#if><#if proxy.obfsParam??>, obfs-param: ${proxy.obfsParam}</#if>}
+  - {name: '${proxy?counter} ${proxy.name}', server: ${proxy.server}, port: ${proxy.port?c}, type: ${proxy.type}, udp: true, cipher: ${proxy.cipher}, password: ${proxy.password}, protocol: ${proxy.protocol}, obfs: ${proxy.obfs}<#if proxy.protocolParam??>, protocol-param: '${proxy.protocolParam}'</#if><#if proxy.obfsParam??>, obfs-param: '${proxy.obfsParam}'</#if>}
   <#elseif proxy.type == "trojan">
   - {name: '${proxy?counter} ${proxy.name}', server: ${proxy.server}, port: ${proxy.port?c}, type: ${proxy.type}, udp: true, password: ${proxy.password}}
   </#if>
