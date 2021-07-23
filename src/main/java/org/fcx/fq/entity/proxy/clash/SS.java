@@ -41,6 +41,7 @@ public class SS extends Proxy {
             String p0 = "[a-zA-z0-9+/=]+/#\\S+";
             String p1 = "[a-zA-z0-9+/=]+#.+";
             String p2 = "[a-zA-Z0-9+/=]+@\\S+/?\\?plugin=\\S+";
+            String p3 = "[a-zA-Z0-9+/=]+@\\S+#.+";
             if(urlDecoded.matches(p0)){
                 String[] fields = urlDecoded.split("/#");
                 setName(fields[1]);
@@ -69,14 +70,7 @@ public class SS extends Proxy {
                 setPort(Integer.parseInt(serverFields[1]));
             }else if(urlDecoded.matches(p2)){
                 String[] fields = urlDecoded.split("/?\\?");
-                String[] proxyFields = fields[0].split("@");
-                String encryptDecoded = MyToolUtil.base64Decode(proxyFields[0]);
-                String[] encryptFields = encryptDecoded.split(":");
-                this.cipher = encryptFields[0];
-                this.password = encryptFields[1];
-                String[] serverFields = proxyFields[1].split(":");
-                setServer(serverFields[0]);
-                setPort(Integer.parseInt(serverFields[1]));
+                this.proxyInfo(fields[0]);
                 String[] otherFields = fields[1].split("#");
                 String[] pluginFields = otherFields[0].split(";");
                 String[] pluginKV = pluginFields[0].split("=");
@@ -87,7 +81,12 @@ public class SS extends Proxy {
                     this.pluginOpts.put("host",pluginFields[2].split("=")[1]);
                 }
                 setName(otherFields[1]);
-            } else {
+            } else if (urlDecoded.matches(p3)) {
+                String[] fields = urlDecoded.split("#");
+                String name = URLDecoder.decode(fields[1],"UTF-8");
+                setName(name);
+                this.proxyInfo(fields[0]);
+            }else {
                 String serverDecoded = MyToolUtil.base64Decode(raw);
                 String noName = "\\S+:\\S+@\\S+:\\d+";
                 if(serverDecoded.matches(noName)){
@@ -110,5 +109,16 @@ public class SS extends Proxy {
             myex.setStackTrace(e.getStackTrace());
             throw myex;
         }
+    }
+
+    private void proxyInfo(String proxyStr) {
+        String[] proxyFields = proxyStr.split("@");
+        String encryptDecoded = MyToolUtil.base64Decode(proxyFields[0]);
+        String[] encryptFields = encryptDecoded.split(":");
+        this.cipher = encryptFields[0];
+        this.password = encryptFields[1];
+        String[] serverFields = proxyFields[1].split(":");
+        setServer(serverFields[0]);
+        setPort(Integer.parseInt(serverFields[1]));
     }
 }
