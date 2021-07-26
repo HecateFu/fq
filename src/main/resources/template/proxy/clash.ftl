@@ -21,14 +21,14 @@ proxy-groups:
   - name: Proxy
     type: select
     proxies:
-      - fallback-auto
+      - url-test
       <#list proxies as proxy>
       <#if (proxy.type == "ssr" && proxy.cipher != "none" && proxy.cipher != "rc4" && proxy.cipher != "chacha20") || (proxy.type == "ss" && proxy.cipher != "rc4") || (proxy.type != "ssr" && proxy.type != "ss")>
       - '${proxy?counter} ${proxy.name}'
       </#if>
       </#list>
-  - name: fallback-auto
-    type: fallback
+  - name: url-test
+    type: url-test
     url: http://www.gstatic.com/generate_204
     interval: 300
     proxies:
