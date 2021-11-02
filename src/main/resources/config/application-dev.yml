@@ -1,6 +1,6 @@
 # 服务器配置
 logging:
   level:
-    org.fcx.mytool: debug
+    org.fcx: debug
 mytool:
   use-proxy: true
