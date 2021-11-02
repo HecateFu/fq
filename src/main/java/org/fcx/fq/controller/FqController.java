@@ -190,8 +190,8 @@ public class FqController {
         String first = MyToolUtil.base64Decode(raw);
         String[] links = first.split("\n");
         Set<Proxy> proxyList = new TreeSet<>((proxy1,proxy2) -> {
-            String p1 = proxy1.getServer()+proxy1.getPort();
-            String p2 = proxy2.getServer()+proxy2.getPort();
+            String p1 = proxy1.getName();
+            String p2 = proxy2.getName();
             return p1.compareTo(p2);
         });
         for (String s : links) {
