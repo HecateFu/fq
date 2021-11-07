@@ -1,12 +1,10 @@
 package org.fcx.fq.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.fcx.fq.exception.MyToolException;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
-@Slf4j
+import org.fcx.fq.exception.MyToolException;
+
 public class MyToolUtil {
     /**
      * Base64 Url 解码，UTF-8 字符集

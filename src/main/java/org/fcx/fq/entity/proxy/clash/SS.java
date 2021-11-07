@@ -82,9 +82,10 @@ public class SS extends Proxy {
                 }
                 setName(otherFields[1]);
             } else if (urlDecoded.matches(p3)) {
+                // demo YWVzLTI1Ni1nY206ZmFCQW9ENTRrODdVSkc3@172.107.233.230:2376#(已存活1天)西班牙-2.94MB%
                 String[] fields = urlDecoded.split("#");
-                String name = URLDecoder.decode(fields[1],"UTF-8");
-                setName(name);
+                // String name = URLDecoder.decode(fields[1],"UTF-8");
+                setName(fields[1]);
                 this.proxyInfo(fields[0]);
             }else {
                 String serverDecoded = MyToolUtil.base64Decode(raw);
