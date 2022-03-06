@@ -42,7 +42,7 @@ public class SSR extends Proxy {
     public SSR(String ssrLink) {
         super("ssr");
         String raw = ssrLink.substring(6);
-        String decodeServer = MyToolUtil.base64UrlDecode(raw);
+        String decodeServer = MyToolUtil.base64Decode(raw);
         log.debug(decodeServer);
         String[] fields = decodeServer.split("/\\?");
         String[] serverInfo = fields[0].split(":");
@@ -57,7 +57,7 @@ public class SSR extends Proxy {
         // 混淆方式
         this.obfs = serverInfo[4];
         // 密码
-        this.password = MyToolUtil.base64UrlDecode(serverInfo[5]);
+        this.password = MyToolUtil.base64Decode(serverInfo[5]);
         String[] encodedParams = fields[1].split("&");
         for(String kvstr : encodedParams) {
             String[] kv = kvstr.split("=");
@@ -71,7 +71,7 @@ public class SSR extends Proxy {
                             log.warn("create ssr miss obfs-param obfs: "+obfs+",serverInfo: "+decodeServer);
                         }
                     } else {
-                        this.obfsParam = MyToolUtil.base64UrlDecode(kv[1]);
+                        this.obfsParam = MyToolUtil.base64Decode(kv[1]);
                     }
                     break;
                 case "protoparam":// 协议参数
@@ -82,11 +82,11 @@ public class SSR extends Proxy {
                             log.warn("create ssr miss protocol-param protocol: "+protocol+",serverInfo: "+decodeServer);
                         }
                     } else {
-                        this.protocolParam = MyToolUtil.base64UrlDecode(kv[1]);
+                        this.protocolParam = MyToolUtil.base64Decode(kv[1]);
                     }
                     break;
                 case "remarks":
-                    setName(MyToolUtil.base64UrlDecode(kv[1]));
+                    setName(MyToolUtil.base64Decode(kv[1]));
                     break;
             }
         }
