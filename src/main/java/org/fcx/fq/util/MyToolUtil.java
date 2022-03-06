@@ -1,10 +1,7 @@
 package org.fcx.fq.util;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-
-import org.fcx.fq.exception.MyToolException;
 
 public class MyToolUtil {
     /**
