@@ -99,6 +99,7 @@ proxies:
     type: ${proxy.type}
     udp: true
     password: ${proxy.password}
+    skip-cert-verify: true
   </#if>
 </#list>
 proxy-groups:
