@@ -45,6 +45,25 @@ public class Vmess extends Proxy {
         ObjectMapper om = JacksonObjectMapperUtil.getJsonMapper();
         try {
             Map<String,?> map = om.readValue(serverJsonStr,Map.class);
+
+            this.tls = map.get("tls")!=null && map.get("tls").equals("tls");
+            this.network = (String)map.get("net");
+            if(this.network.equals("ws")) {
+                this.wsPath = (String)map.get("path");
+                if (StringUtils.isEmpty(wsPath)){
+                    this.wsPath="/";
+                }
+                this.wsHeaders = new HashMap<>();
+//                this.wsHeaders.put("Host",(String)map.get("add"));
+                if(StringUtils.isEmpty(map.get("host"))){
+                    this.wsHeaders.put("Host",(String)map.get("add"));
+                } else {
+                    this.wsHeaders.put("Host",(String)map.get("host"));
+                }
+            } else if (this.network.equals("h2")){
+                throw new MyToolException("vmess unsupport network h2, origin proxy info: "+map);
+            }
+
             setName((String)map.get("ps"));
             if(getName().startsWith("??")){
                 setName(getName().replace("??",""));
@@ -66,21 +85,6 @@ public class Vmess extends Proxy {
                 this.alterId = (Integer)map.get("alterId");
             }
             this.cipher = "auto";
-            this.tls = map.get("tls")!=null && map.get("tls").equals("tls");
-            this.network = (String)map.get("net");
-            if(this.network.equals("ws")) {
-                this.wsPath = (String)map.get("path");
-                if (StringUtils.isEmpty(wsPath)){
-                    this.wsPath="/";
-                }
-                this.wsHeaders = new HashMap<>();
-//                this.wsHeaders.put("Host",(String)map.get("add"));
-                if(StringUtils.isEmpty(map.get("host"))){
-                    this.wsHeaders.put("Host",(String)map.get("add"));
-                } else {
-                    this.wsHeaders.put("Host",(String)map.get("host"));
-                }
-            }
         } catch (IOException e) {
             log.error("create vmess failed",e);
             MyToolException me = new MyToolException("create vmess jsonStr parse Map err : "+serverJsonStr);

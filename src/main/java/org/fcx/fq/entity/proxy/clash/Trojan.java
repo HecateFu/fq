@@ -23,6 +23,7 @@ public class Trojan extends Proxy {
     public Trojan(String link) {
         super("trojan");
         try {
+            log.debug(link);
             String raw = link.substring(9);
             // 密码
             String[] sa1 = raw.split("@");
